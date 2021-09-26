@@ -8,12 +8,16 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 
 # Create your models here.
 class Log(models.Model):
+    """
+    Log model for using as a GenericForeignKey
+    """
     title = models.CharField('Title', max_length=128)
     decription = models.TextField('Description', null=True, blank=True)
     # ? Passing exception error code.
-    exception = models.SmallIntegerField(null=True)
+    exception = models.TextField(null=True)
     # Generating ContentType Field
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     # Generic ForeignKey for using in other model
-    content_opject = GenericForeignKey('content_type', 'object_id')
+    related_object = GenericForeignKey('content_type', 'object_id')
+
