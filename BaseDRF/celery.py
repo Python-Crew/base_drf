@@ -5,4 +5,4 @@ from celery import Celery
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BaseDRF.settings')
 celery_app = Celery('BaseDRF')
 celery_app.config_from_object('django.conf:settings', namespace='CELERY')
-celery_app.autodiscover_tasks(related_name='celery_tasks')
+celery_app.autodiscover_tasks(related_name= 'celery_tasks' )
