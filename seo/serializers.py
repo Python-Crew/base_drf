@@ -4,13 +4,6 @@ from . import models
 
 
 class PageModelSerializer(serializers.ModelSerializer):
-    #     camera_detail = CameraModelSerializer(source="camera", read_only=True)
-    #     light_detail = LightModelSerializer(source="light", read_only=True)
-    #     banner_detail = BannerModelSerializer(source="banner", read_only=True)
-    #     mic_detail = MicModelSerializer(source="mic", read_only=True)
-    #     speaker_detail = SpeakerModelSerializer(source="speaker", read_only=True)
-    #     led_detail = LEDModelSerializer(source="led", read_only=True)
-
     class Meta:
         model = models.Page
         fields = "__all__"
@@ -19,7 +12,7 @@ class PageModelSerializer(serializers.ModelSerializer):
 class SocialMetaModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.SocialMeta
-        exclude = ("id", "page")   
+        exclude = ("id", "page")
 
 
 class GenarallMetaModelSerializer(serializers.ModelSerializer):
@@ -41,4 +34,3 @@ class CombineSerializer(serializers.Serializer):
         generall_meta = models.GenarallMeta.objects.get(page=obj)
         data = GenarallMetaModelSerializer(generall_meta, ).data
         return data
-

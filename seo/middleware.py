@@ -1,11 +1,10 @@
-from blog.models import Post
 from seo.models import Page
 from seo.serializers import CombineSerializer
 
 from django.shortcuts import redirect
 
 
-class AppendSEOItems:
+class IncludeSEOInfo:
     def __init__(self, get_response):
         self.get_response = get_response
         super().__init__()

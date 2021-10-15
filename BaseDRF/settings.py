@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'seo.middleware.AppendSEOItems',
+    'seo.middleware.IncludeSEOInfo',
 ]
 
 ROOT_URLCONF = 'BaseDRF.urls'

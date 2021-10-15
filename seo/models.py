@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _
 
 class Page(models.Model):
     url = models.TextField(
-        _("base url"), 
+        _("base url"),
         unique=True
     )
     redirect_to = models.TextField(_("redirect url"))
@@ -15,11 +15,13 @@ class Page(models.Model):
     REDIRECT_STATUS_307 = 307
     REDIRECT_STATUS_308 = 308
     REDIRECT_STATUS_TYPE = (
-        (REDIRECT_STATUS_301, '301'),
-        (REDIRECT_STATUS_302, '302'),
-        (REDIRECT_STATUS_303, '303'),
-        (REDIRECT_STATUS_307, '307'),
-        (REDIRECT_STATUS_308, '308')
+        (REDIRECT_STATUS_301, '301:Permanent, Cacheable, Request GET/POST may change'),
+        (REDIRECT_STATUS_302,
+         '302:Temporary, not Cacheable by default, Request GET/POST may change'),
+        (REDIRECT_STATUS_303, '303:Temporary, never Cacheable, Request always GET'),
+        (REDIRECT_STATUS_307,
+         '307:Temporary, not Cacheable by default, Request may not change'),
+        (REDIRECT_STATUS_308, '308:Permanent, by default Cacheable, Request may not change')
     )
     redirect_status = models.IntegerField(
         _("redirect status code"),
@@ -27,11 +29,11 @@ class Page(models.Model):
         choices=REDIRECT_STATUS_TYPE
     )
 
-    REDIRECT = "redirect"
-    SEOINFO = "seo_info"
+    OPERATION_REDIRECT = "redirect"
+    OPERATION_INCLUDE_SEO_INFO = "seo_info"
     OPERATIONCHOICE = (
-        (REDIRECT, "redirect"),
-        (SEOINFO, "seo_info"),
+        (OPERATION_REDIRECT, "operation redirect"),
+        (OPERATION_INCLUDE_SEO_INFO, "operation include SEO info"),
     )
     operation = models.CharField(
         _("operation of page"),
@@ -113,42 +115,3 @@ class GenarallMeta(models.Model):
 
     def __str__(self) -> str:
         return "header of: " + self.head_title
-
-
-# class body(models.Model):
-#     content_tag = models.CharField(
-#         _("html tag of content"),
-#         max_length=100,
-#         default="<article>"
-#     )
-#     image_tag = models.CharField(
-#         _("html tag for image"),
-#         max_length=100,
-#         default="<figure>"
-#     )
-#     figcaption_for_image = models.CharField(
-#         _("html tag for caption of image"),
-#         max_length=100,
-#         default="<figcaption>"
-#     )
-#     post = models.OneToOneField(
-#         "blog.Post",
-#         on_delete=models.CASCADE,
-#         verbose_name=_("post of this setting")
-#     )
-
-#     def __str__(self) -> str:
-#         return "body of: " + self.post.title
-
-
-# server:
-#   https
-#   CDN
-#   NOrmalizing a database
-#   Denormalization of a daabase
-#   cach => cache control header
-#   server caching => activate cdn
-#   use CDN => for cloud feler
-#   http2 Response
-#   keep-Alive
-#   GZIP compression or br
