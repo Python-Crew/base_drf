@@ -2,18 +2,19 @@ from django.urls import path, include
 from .views import *
 from rest_framework import routers
 from knowledge_center import views
+
 # from .views import show_categories
 
 router = routers.DefaultRouter()
-router.register(r'categories', views.CategoryViewSet)
+router.register(r"categories", views.CategoryViewSet)
 
 
-category = views.CategoryViewSet.as_view({
-    'get': 'retrieve',
-})
+category = views.CategoryViewSet.as_view({"get": "retrieve"})
+main_page_category = views.CategoryViewSet.as_view({"get": "selected"})
 
 urlpatterns = [
-    path('faq/', include(router.urls)),
-    path('faq/categories/', category, name='category_list'),
-    path('faq/categories/<int:pk>/', category, name='category_detail'),
+    path("faq/", include(router.urls)),
+    path("faq/categories/", category, name="category_list"),
+    path("faq/categories/<int:pk>/", category, name="category_detail"),
+    path("faq/categories/selected", main_page_category, name="main_page_categories"),
 ]

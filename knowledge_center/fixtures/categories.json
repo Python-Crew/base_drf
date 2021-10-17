@@ -1,0 +1,197 @@
+[
+{
+  "model": "knowledge_center.category",
+  "pk": 1,
+  "fields": {
+    "title": "Rock",
+    "parent": null,
+    "main_page_category": true,
+    "lft": 1,
+    "rght": 18,
+    "tree_id": 4,
+    "level": 0
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 2,
+  "fields": {
+    "title": "Blues",
+    "parent": 1,
+    "main_page_category": false,
+    "lft": 2,
+    "rght": 7,
+    "tree_id": 4,
+    "level": 1
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 3,
+  "fields": {
+    "title": "Hard Rock",
+    "parent": 1,
+    "main_page_category": false,
+    "lft": 8,
+    "rght": 9,
+    "tree_id": 4,
+    "level": 1
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 4,
+  "fields": {
+    "title": "Pop Rock",
+    "parent": 1,
+    "main_page_category": false,
+    "lft": 10,
+    "rght": 11,
+    "tree_id": 4,
+    "level": 1
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 5,
+  "fields": {
+    "title": "Jazz",
+    "parent": null,
+    "main_page_category": false,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 6,
+  "fields": {
+    "title": "Hard Blues",
+    "parent": 2,
+    "main_page_category": false,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 4,
+    "level": 2
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 7,
+  "fields": {
+    "title": "Pop",
+    "parent": 2,
+    "main_page_category": false,
+    "lft": 5,
+    "rght": 6,
+    "tree_id": 4,
+    "level": 2
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 8,
+  "fields": {
+    "title": "classic Rock",
+    "parent": 1,
+    "main_page_category": false,
+    "lft": 12,
+    "rght": 13,
+    "tree_id": 4,
+    "level": 1
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 9,
+  "fields": {
+    "title": "old Hard Rock",
+    "parent": null,
+    "main_page_category": false,
+    "lft": 1,
+    "rght": 6,
+    "tree_id": 5,
+    "level": 0
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 10,
+  "fields": {
+    "title": "old Hard Rock-1",
+    "parent": 9,
+    "main_page_category": true,
+    "lft": 2,
+    "rght": 5,
+    "tree_id": 5,
+    "level": 1
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 11,
+  "fields": {
+    "title": "old Hard Rock-2",
+    "parent": 10,
+    "main_page_category": true,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 5,
+    "level": 2
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 12,
+  "fields": {
+    "title": "old Hard Rock-3",
+    "parent": null,
+    "main_page_category": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 6,
+    "level": 0
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 13,
+  "fields": {
+    "title": "old Hard Rock-4",
+    "parent": null,
+    "main_page_category": false,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 7,
+    "level": 0
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 14,
+  "fields": {
+    "title": "hard-rock-6",
+    "parent": 1,
+    "main_page_category": false,
+    "lft": 14,
+    "rght": 17,
+    "tree_id": 4,
+    "level": 1
+  }
+},
+{
+  "model": "knowledge_center.category",
+  "pk": 15,
+  "fields": {
+    "title": "Hard-rock-7",
+    "parent": 14,
+    "main_page_category": false,
+    "lft": 15,
+    "rght": 16,
+    "tree_id": 4,
+    "level": 2
+  }
+}
+]
