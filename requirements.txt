@@ -5,4 +5,4 @@ sqlparse==0.4.1
 prices==1.1.0
 requests==2.26.0
 djangorestframework==3.12.4
-Babel==2.9.1
+black==21.9b0
