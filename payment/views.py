@@ -9,44 +9,30 @@ import logging
 from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse
+from rest_framework.response import Response
+from rest_framework import serializers
 
 from payment.banks.banks import Zibal
+from rest_framework.views import APIView
 
 
-class PaymentSampleForm(forms.Form):
-    amount = forms.IntegerField(label='Amount', initial=10000)
+class RequestPaymentApi(APIView):
+    class InputSerializer(serializers.Serializer):
+        amount = serializers.FloatField()
 
-def sample_payment_view(request):
-    if request.method == 'POST':
-        form = PaymentSampleForm(request.POST)
-        if form.is_valid():
-            amount = form.cleaned_data['amount']
-            try:
-                bank = Zibal()
-                bank.set_request(request)
-                bank._gateway_amount = int(amount)
-                bank._callback_url = 'http://127.0.0.1:8000/sample-result/'
-                bank.ready()
-                return bank.redirect_gateway()
-            except Exception as e:
-                print(e, 'Exception in payment view')
-                raise e
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = PaymentSampleForm()
-
-    return render(request, 'samples/gateway.html', {'form': form})
+    def post(self, request):
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        bank = Zibal()
+        bank.set_request(request)
+        bank._gateway_amount = int(serializer.data["amount"])
+        bank.ready()
+        data = {"gateway_url": bank.get_gateway_payment_url()}
+        return Response(data)
 
 
-def sample_result_view(request):
-    if int(request.GET.get('success')) == 1:
-        massage = True
-
-    if int(request.GET.get('success')) == 0:
-        massage = False
-    context = {
-        'massage' : massage
-    }
-
-    return render(request, 'samples/result.html', context)
+class RequestPaymentVerifyApi(APIView):
+    def get(self, request):
+        bank = Zibal()
+        data = {"verify_result": bank.verify(self.request.query_params)}
+        return Response(data)
