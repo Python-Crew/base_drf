@@ -27,10 +27,14 @@ class CombineSerializer(serializers.Serializer):
 
     def get_social(self, obj):
         social_mata = models.SocialMeta.objects.get(page=obj)
-        data = SocialMetaModelSerializer(social_mata, ).data
+        data = SocialMetaModelSerializer(
+            social_mata,
+        ).data
         return data
 
     def get_generall(self, obj):
         generall_meta = models.GenarallMeta.objects.get(page=obj)
-        data = GenarallMetaModelSerializer(generall_meta, ).data
+        data = GenarallMetaModelSerializer(
+            generall_meta,
+        ).data
         return data

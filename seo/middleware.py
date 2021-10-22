@@ -19,11 +19,8 @@ class IncludeSEOInfo:
         request_url = request.get_full_path()
         page = Page.objects.filter(url=request_url)
         if len(page) > 0:
-            if page[0].operation == 'redirect':
-                return redirect(
-                    page[0].redirect_to,
-                    status=page[0].redirect_status
-                )
+            if page[0].operation == "redirect":
+                return redirect(page[0].redirect_to, status=page[0].redirect_status)
 
     def process_exception(self, request, response):
         return response
@@ -34,5 +31,5 @@ class IncludeSEOInfo:
         if len(page) > 0:
             if page[0].operation == "seo_info":
                 serializer = CombineSerializer(page[0])
-                response.data.setdefault('seo', serializer.data)
+                response.data.setdefault("seo", serializer.data)
         return response
