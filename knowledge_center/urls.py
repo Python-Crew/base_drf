@@ -7,14 +7,18 @@ from knowledge_center import views
 
 router = routers.DefaultRouter()
 router.register(r"categories", views.CategoryViewSet)
+router.register(r"articles", views.ArticleViewSet)
 
 
 category = views.CategoryViewSet.as_view({"get": "retrieve"})
 main_page_category = views.CategoryViewSet.as_view({"get": "selected"})
+article = views.ArticleViewSet.as_view({"get": "retrieve"})
 
 urlpatterns = [
-    path("faq/", include(router.urls)),
-    path("faq/categories/", category, name="category_list"),
-    path("faq/categories/<int:pk>/", category, name="category_detail"),
-    path("faq/categories/selected", main_page_category, name="main_page_categories"),
+    path("knowledge_center/", include(router.urls)),
+    path("knowledge_center/categories/", category, name="category_list"),
+    path("knowledge_center/categories/<int:pk>/",category, name="category_detail"),
+    path("knowledge_center/categories/selected",main_page_category, name="main_page_categories"),
+    path("knowledge_center/articles/",article, name="article_list"),
+    path("knowledge_center/articles/<int:pk>/",article, name="article_detail"),
 ]

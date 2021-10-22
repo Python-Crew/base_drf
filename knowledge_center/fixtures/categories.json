@@ -1,6 +1,6 @@
 [
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 1,
   "fields": {
     "title": "Rock",
@@ -13,7 +13,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 2,
   "fields": {
     "title": "Blues",
@@ -26,7 +26,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 3,
   "fields": {
     "title": "Hard Rock",
@@ -39,7 +39,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 4,
   "fields": {
     "title": "Pop Rock",
@@ -52,7 +52,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 5,
   "fields": {
     "title": "Jazz",
@@ -65,7 +65,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 6,
   "fields": {
     "title": "Hard Blues",
@@ -78,7 +78,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 7,
   "fields": {
     "title": "Pop",
@@ -91,7 +91,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 8,
   "fields": {
     "title": "classic Rock",
@@ -104,7 +104,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 9,
   "fields": {
     "title": "old Hard Rock",
@@ -117,7 +117,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 10,
   "fields": {
     "title": "old Hard Rock-1",
@@ -130,7 +130,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 11,
   "fields": {
     "title": "old Hard Rock-2",
@@ -143,7 +143,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 12,
   "fields": {
     "title": "old Hard Rock-3",
@@ -156,7 +156,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 13,
   "fields": {
     "title": "old Hard Rock-4",
@@ -169,7 +169,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 14,
   "fields": {
     "title": "hard-rock-6",
@@ -182,7 +182,7 @@
   }
 },
 {
-  "model": "knowledge_center.category",
+  "model": "knowledge_center.knowledge_center_category",
   "pk": 15,
   "fields": {
     "title": "Hard-rock-7",

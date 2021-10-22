@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework_recursive.fields import RecursiveField
 
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class KnowledgeCenterCategorySerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="category_detail")
     children = RecursiveField(
         many=True,
@@ -11,5 +11,12 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model = Category
+        model = Knowledge_Center_Category
         fields = ["url", "id", "title", "children", "main_page_category"]
+
+
+class KnowledgeCenterArticleSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model = Knowledge_Center_Article
+        fields = ["category", "author", "text", "rate"]
+        read_only_fields = ["category"]
