@@ -120,3 +120,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+
+# PAYMENT SETTINGS
+
+CALLBACK_URL = "http://127.0.0.1:8000/payment/request_payment/verify/"
+
+BANK_SETTINGS = {
+    "zibal": {
+        "merchant_code": "zibal",
+        "token_api_url": "https://gateway.zibal.ir/v1/request",
+        "payment_url": "https://gateway.zibal.ir/start/{}",
+        "verify_api_url": "https://gateway.zibal.ir/v1/verify",
+    }
+}
