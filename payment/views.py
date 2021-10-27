@@ -1,17 +1,22 @@
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework.views import APIView
+
+from payment.banks.bankfactories import BankFactory
 from payment.banks.zibal import Zibal
 
 
 class RequestPaymentApi(APIView):
     class InputSerializer(serializers.Serializer):
         amount = serializers.FloatField()
+        bank_type = serializers.CharField()
 
     def post(self, request):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        bank = Zibal()
+        bank_type = serializer.data["bank_type"]
+        factory = BankFactory()
+        bank = factory.create(bank_type)
         bank.set_request(request)
         bank._gateway_amount = int(serializer.data["amount"])
         bank.ready()

@@ -126,6 +126,10 @@ STATIC_URL = "/static/"
 
 CALLBACK_URL = "http://127.0.0.1:8000/payment/request_payment/verify/"
 
+BANK_CLASS = {
+    "Zibal": "payment.banks.zibal.Zibal",
+}
+
 BANK_SETTINGS = {
     "zibal": {
         "merchant_code": "zibal",
