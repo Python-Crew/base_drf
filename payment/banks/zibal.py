@@ -46,6 +46,7 @@ class Zibal(BaseBank):
             "merchant": self._merchant_code,
             "trackId": params.get("trackId"),
         }
+        print(data)
         response_json = self._send_data(self._verify_api_url, data)
         if response_json["result"] == 100 and response_json["status"] == 1:
             print(response_json["result"])

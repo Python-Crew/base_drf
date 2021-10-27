@@ -26,11 +26,15 @@ class RequestPaymentApi(APIView):
 
 class RequestPaymentVerifyApi(APIView):
     def get(self, request):
-        bank = Zibal()
-        data = {"verify_result": bank.verify(self.request.query_params)}
-        return Response(data)
+        data = self.request.query_params
+        get_data = {}
+        for i in data:
+            get_data[i] = data.get(i)
+        return self.post(request, get_data)
 
-    def post(self, request):
+    def post(self, request, get_data):
         bank = Zibal()
-        data = {"verify_result": bank.verify(self.request.query_params)}
+        post_data = self.request.data
+        post_data.update(get_data)
+        data = {"verify_result": bank.verify(post_data)}
         return Response(data)
