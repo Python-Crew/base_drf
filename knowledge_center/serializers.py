@@ -11,12 +11,18 @@ class KnowledgeCenterCategorySerializer(serializers.HyperlinkedModelSerializer):
     )
 
     class Meta:
-        model = Knowledge_Center_Category
+        model = KnowledgeCenterCategory
         fields = ["url", "id", "title", "children", "main_page_category"]
 
 
 class KnowledgeCenterArticleSerilizer(serializers.ModelSerializer):
     class Meta:
-        model = Knowledge_Center_Article
-        fields = ["category", "author", "text", "rate"]
-        read_only_fields = ["category"]
+        model = KnowledgeCenterArticle
+        fields = ["category", "author", "text","categoty","Avg_rate"]
+
+
+class ArticleRateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleRate
+        fields = ["article", "rate"]
+

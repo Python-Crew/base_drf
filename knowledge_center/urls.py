@@ -1,24 +1,24 @@
 from django.urls import path, include
-from .views import *
+from .views import ArticleRateViewSet, CategoryAPIView, CategorySelectedAPIView, ArticleAPIView
 from rest_framework import routers
-from knowledge_center import views
 
 # from .views import show_categories
 
 router = routers.DefaultRouter()
-router.register(r"categories", views.CategoryViewSet)
-router.register(r"articles", views.ArticleViewSet)
 
-
-category = views.CategoryViewSet.as_view({"get": "retrieve"})
-main_page_category = views.CategoryViewSet.as_view({"get": "selected"})
-article = views.ArticleViewSet.as_view({"get": "retrieve"})
+category = CategoryAPIView.as_view()
+article = ArticleAPIView.as_view()
+main_page_category = CategorySelectedAPIView.as_view({"get": "selected"})
+article_rate = ArticleRateViewSet.as_view({"post":"create" ,"get":"retrieve"})
 
 urlpatterns = [
     path("knowledge_center/", include(router.urls)),
     path("knowledge_center/categories/", category, name="category_list"),
-    path("knowledge_center/categories/<int:pk>/",category, name="category_detail"),
-    path("knowledge_center/categories/selected",main_page_category, name="main_page_categories"),
-    path("knowledge_center/articles/",article, name="article_list"),
-    path("knowledge_center/articles/<int:pk>/",article, name="article_detail"),
+    path("knowledge_center/categories/<int:pk>/",
+         category, name="category_detail"),
+    path("knowledge_center/selected_categories",
+         main_page_category, name="main_page_categories"),
+    path("knowledge_center/articles/", article, name="article_list"),
+    path("knowledge_center/articles/<int:pk>/", article, name="article_detail"),
+    path("knowledge_center/article_rate/<int:pk>/", article_rate, name="article_rate"),
 ]

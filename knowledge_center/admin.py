@@ -1,10 +1,11 @@
 from django.contrib import admin
-from knowledge_center.views import *
 
-admin.site.site_header = "FAQ Dashboard"
+from knowledge_center.models import ArticleRate, KnowledgeCenterArticle, KnowledgeCenterCategory
+
+admin.site.site_header = "Knowledge Center Dashboard"
 
 
-@admin.register(Knowledge_Center_Category)
+@admin.register(KnowledgeCenterCategory)
 class CategoryAdmin(admin.ModelAdmin):
     # readonly_fields = ['',]
     list_display = ("title", "parent", "main_page_category")
@@ -16,12 +17,27 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ("title",)
 
 
-@admin.register(Knowledge_Center_Article)
+@admin.register(KnowledgeCenterArticle)
 class ArticleAdmin(admin.ModelAdmin):
     # readonly_fields = ['',]
-    list_display = ("pk", "author", "rate")
-    list_filter = ["author",]
+    list_display = ("pk", "author","Avg_rate")
+    list_filter = [
+        "author",
+    ]
     list_per_page = 20
     actions_selection_counter = True
     search_fields = ("author", "categoty__title")
     ordering = ("category__title",)
+
+
+@admin.register(ArticleRate)
+class ArticleRateAdmin(admin.ModelAdmin):
+    # readonly_fields = ['',]
+    list_display = ("article_id", "rate")
+    list_filter = [
+        "article",
+    ]
+    list_per_page = 20
+    actions_selection_counter = True
+    search_fields = ("article__id", )
+    ordering = ("article",)
