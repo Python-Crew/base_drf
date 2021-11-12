@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "knowledge_center",
     "rest_framework",
     "mptt",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -127,4 +128,5 @@ STATIC_URL = "/static/"
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 5,
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
