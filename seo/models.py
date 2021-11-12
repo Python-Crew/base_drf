@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
+from .services import delete_space_and_slash
+
 
 class Page(models.Model):
     url = models.TextField(_("base url"), unique=True)
@@ -28,7 +30,9 @@ class Page(models.Model):
         ),
     )
     redirect_status = models.IntegerField(
-        _("redirect status code"), null=True, blank=True, choices=REDIRECT_STATUS_TYPE
+        _("redirect status code"),
+        null=True, blank=True,
+        choices=REDIRECT_STATUS_TYPE
     )
 
     OPERATION_REDIRECT = "redirect"
@@ -45,10 +49,18 @@ class Page(models.Model):
         blank=True,
     )
 
+    def __str__(self) -> str:
+        return super().__str__()
+
+    def save(self, *args, **kwargs):
+        self.url = delete_space_and_slash(self.url)
+        self.redirect_to = delete_space_and_slash(self.redirect_to)
+        super(Page, self).save(*args, **kwargs)
+
 
 class SocialMeta(models.Model):
     page = models.OneToOneField(
-        "Page", on_delete=models.CASCADE, verbose_name=_("page instance")
+        "seo.Page", on_delete=models.CASCADE, verbose_name=_("page instance")
     )
     meta_name_twitter_card = models.TextField(
         _("name='twitter:card'#summery_large_image")
@@ -68,7 +80,7 @@ class SocialMeta(models.Model):
 
 class GenarallMeta(models.Model):
     page = models.OneToOneField(
-        "Page", on_delete=models.CASCADE, verbose_name=_("page instance")
+        "seo.Page", on_delete=models.CASCADE, verbose_name=_("page instance")
     )
     head_title = models.TextField(
         _("title of head"),

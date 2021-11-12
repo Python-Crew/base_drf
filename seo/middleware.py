@@ -1,7 +1,9 @@
+from django.shortcuts import redirect
+
 from seo.models import Page
 from seo.serializers import CombineSerializer
+from .services import delete_space_and_slash
 
-from django.shortcuts import redirect
 
 
 class IncludeSEOInfo:
@@ -16,7 +18,7 @@ class IncludeSEOInfo:
         return response
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        request_url = request.get_full_path()
+        request_url = delete_space_and_slash(request.get_full_path())
         page = Page.objects.filter(url=request_url)
         if len(page) > 0:
             if page[0].operation == "redirect":
@@ -26,7 +28,7 @@ class IncludeSEOInfo:
         return response
 
     def process_template_response(self, request, response):
-        request_url = request.get_full_path()
+        request_url = delete_space_and_slash(request.get_full_path())
         page = Page.objects.filter(url=request_url)
         if len(page) > 0:
             if page[0].operation == "seo_info":
