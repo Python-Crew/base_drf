@@ -136,5 +136,6 @@ BANK_SETTINGS = {
         "token_api_url": "https://gateway.zibal.ir/v1/request",
         "payment_url": "https://gateway.zibal.ir/start/{}",
         "verify_api_url": "https://gateway.zibal.ir/v1/verify",
-    }
+    },
+    "DEFAULT": "Zibal",
 }

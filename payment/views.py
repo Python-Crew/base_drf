@@ -9,13 +9,16 @@ from payment.banks.zibal import Zibal
 class RequestPaymentApi(APIView):
     class InputSerializer(serializers.Serializer):
         amount = serializers.FloatField()
-        bank_type = serializers.CharField()
+        bank_type = serializers.CharField(required=False)
 
     def post(self, request):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        bank_type = serializer.data["bank_type"]
         factory = BankFactory()
+        if "bank_type" in serializer.data:
+            bank_type = serializer.data["bank_type"]
+        else:
+            bank_type = "None"
         bank = factory.create(bank_type)
         bank.set_request(request)
         bank._gateway_amount = int(serializer.data["amount"])
