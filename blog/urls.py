@@ -6,5 +6,4 @@ router = routers.SimpleRouter()
 
 router.register(r"post", views.PostModelViewSet)
 
-urlpatterns = [
-] + router.urls
+urlpatterns = [] + router.urls
