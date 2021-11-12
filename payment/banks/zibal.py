@@ -1,16 +1,18 @@
+from BaseDRF.settings import BANK_SETTINGS
 from payment.banks.banks import BaseBank
 import requests
-from BaseDRF.settings import BANK_SETTINGS
+from django.conf import settings
 
 
 class Zibal(BaseBank):
-    _merchant_code = BANK_SETTINGS["zibal"]["merchant_code"]
+    _bank_config = getattr(settings, 'BANK_SETTINGS', None)
 
     def __init__(self, **kwargs):
         super(Zibal, self).__init__(**kwargs)
-        self._token_api_url = BANK_SETTINGS["zibal"]["token_api_url"]
-        self._payment_url = BANK_SETTINGS["zibal"]["payment_url"]
-        self._verify_api_url = BANK_SETTINGS["zibal"]["verify_api_url"]
+        self._merchant_code = self._bank_config['zibal']["merchant_code"]
+        self._token_api_url = self._bank_config["zibal"]["token_api_url"]
+        self._payment_url = self._bank_config["zibal"]["payment_url"]
+        self._verify_api_url = self._bank_config["zibal"]["verify_api_url"]
 
     def _get_gateway_payment_url_parameter(self):
         return self._payment_url.format(self._transaction_code)
