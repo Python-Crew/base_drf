@@ -24,8 +24,6 @@ class AuthViewSet(GenericViewSet):
     @staticmethod
     def generate_otp(user: User) -> str:
         now = int(timezone.now().timestamp())
-        print(OTP_EXPIRE_TIME)
-        print(TOTP(user.key, interval=OTP_EXPIRE_TIME).at(now))
         return TOTP(user.key, interval=OTP_EXPIRE_TIME).at(now)
 
     @action(
@@ -38,9 +36,17 @@ class AuthViewSet(GenericViewSet):
         serializer.is_valid(raise_exception=True)
 
         user = get_user(serializer.validated_data["username"])
-        print(user)
         otp = self.__class__.generate_otp(user)
         user.sendOTP(otp=otp)
         if settings.DEBUG:
             return Response({"otp": otp})
+        return Response("sent")
+
+    @action(
+        methods=["post"],
+        detail=False,
+        permission_classes=[IsAuthenticated],
+    )
+    def sample_auth(self, request, *args, **kwargs):
+        print(request.user.phone_no)
         return Response("sent")

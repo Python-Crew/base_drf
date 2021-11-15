@@ -27,17 +27,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             )
 
         if self.user.check_password(request.data.get("password")):
-            print(1)
             pass
         elif self.user.verify_otp(request.data.get("password")):
-            print(2)
             pass
         else:
-            print(3)
             raise exceptions.AuthenticationFailed(
-                    self.error_messages["no_active_account"],
-                    "no_active_account",
-                )
+                self.error_messages["no_active_account"],
+                "no_active_account",
+            )
 
         if not simplejwt_api_settings.USER_AUTHENTICATION_RULE(self.user):
             raise exceptions.AuthenticationFailed(
