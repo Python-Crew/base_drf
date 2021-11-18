@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "imagekit",
     "ckeditor",
     "ckeditor_uploader",
+    "rest_framework_simplejwt",
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -178,4 +180,17 @@ AUTH_USER_MODEL = "auth.User"
 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
-# CKEDITOR_THUMBNAIL_SIZE = (500, 500)
+
+
+AUTH_USER_MODEL = "user.User"
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ]
+}
+
+OTP_EXPIRE_TIME = 60
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
