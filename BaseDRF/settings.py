@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "tinymce",
     "imagekit",
     "ckeditor",
+    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [
@@ -173,23 +174,8 @@ IMAGEKIT_DEFAULT_IMAGE_CACHE_BACKEND = "path.to.MyImageCacheBackend"
 
 SITE_PROTOCOL = "http"
 
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = "auth.User"
 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': 'Custom',
-#         'height': 300,
-#         'width': 300,
-#         'toolbar_Custom': [
-#             ['Bold', 'Italic', 'Underline'],
-#             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-#             ['Link', 'Unlink'],
-#             ['RemoveFormat', 'Source']
-#         ]
-#     },
-#     'awesome_ckeditor': {
-#         'toolbar': 'Basic',
-#     },
-# }
+# CKEDITOR_THUMBNAIL_SIZE = (500, 500)

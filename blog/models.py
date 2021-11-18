@@ -49,12 +49,11 @@ class Post(TimestampModel):
         format="webp",
         options={"quality": 70},
     )
-    content = HTMLField(
+    content = RichTextUploadingField(
         _("content of post, use one just h1 for header in content"),
         blank=True,
         null=True,
     )
-    content_b = RichTextUploadingField(null=True, blank=True)
     is_published = models.BooleanField(_("can publish post?"))
     category = models.ForeignKey(
         "blog.BlogCategory",
