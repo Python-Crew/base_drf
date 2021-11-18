@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt",
+    "user",
     "mptt",
     "blog",
-    "tinymce",
     "imagekit",
     "ckeditor",
     "ckeditor_uploader",
@@ -140,42 +141,24 @@ REST_FRAMEWORK = {
     ]
 }
 
-TINYMCE_DEFAULT_CONFIG = {
-    "height": 1280,
-    "width": 1920,
-    "cleanup_on_startup": True,
-    "custom_undo_redo_levels": 20,
-    "selector": "textarea",
-    "browser_spellcheck": "true",
-    "theme": "modern",
-    "plugins": """
-            textcolor save link image media preview codesample contextmenu
-            table code lists fullscreen  insertdatetime  nonbreaking
-            contextmenu directionality searchreplace wordcount visualblocks
-            visualchars code fullscreen autolink lists  charmap print  hr
-            anchor pagebreak
-            """,
-    "toolbar1": """
-            fullscreen preview bold italic underline | fontselect,
-            fontsizeselect  | forecolor backcolor | alignleft alignright |
-            aligncenter alignjustify | indent outdent | bullist numlist table |
-            | link image media | codesample
-            """,
-    "toolbar2": """
-            visualblocks visualchars |
-            charmap hr pagebreak nonbreaking anchor |  code |
-            """,
-    "contextmenu": "formats | link image",
-    "menubar": True,
-    "statusbar": True,
-}
-
 IMAGEKIT_DEFAULT_IMAGE_CACHE_BACKEND = "path.to.MyImageCacheBackend"
 
 SITE_PROTOCOL = "http"
 
-AUTH_USER_MODEL = "auth.User"
-
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
-# CKEDITOR_THUMBNAIL_SIZE = (500, 500)
+
+
+AUTH_USER_MODEL = "user.User"
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ]
+}
+
+OTP_EXPIRE_TIME = 60
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
