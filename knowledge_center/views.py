@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
-from knowledge_center.filter import ArticleFilter, CategoryFilter
 from knowledge_center.models import (
     ArticleRate,
     KnowledgeCenterArticle,
@@ -21,27 +20,13 @@ class CategoryListAPIView(generics.ListAPIView):
     queryset = KnowledgeCenterCategory.objects.all()
     serializer_class = KnowledgeCenterCategorySerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = CategoryFilter
+    filterset_fields = ("title", "parent")
 
 
 class CategoryDetailAPIView(generics.RetrieveAPIView):
     queryset = KnowledgeCenterCategory.objects.all()
     serializer_class = KnowledgeCenterCategorySerializer
     lookup_filed = "pk"
-
-    def get(self, request, **kwargs):
-        cat_title = self.get_object()
-        articles = KnowledgeCenterArticle.objects.filter(
-            category__in=KnowledgeCenterCategory.objects.get(
-                title=cat_title
-            ).get_descendants(include_self=True)
-        )
-        filter_articles = ArticleFilter(self.request.GET, queryset=articles)
-        serializer = KnowledgeCenterCategorySerializer(
-            filter_articles.qs, many=True, context={"request": request}
-        )
-
-        return Response(serializer.data)
 
 
 class CategorySelectedAPIView(viewsets.ModelViewSet):
@@ -63,7 +48,7 @@ class ArticleListAPIView(generics.ListAPIView):
     queryset = KnowledgeCenterArticle.objects.all()
     serializer_class = KnowledgeCenterArticleSerilizer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = ArticleFilter
+    filterset_fields = ("author", "category")
 
 
 class ArticleDetailAPIView(generics.RetrieveAPIView):

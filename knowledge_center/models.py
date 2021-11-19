@@ -38,7 +38,7 @@ class KnowledgeCenterArticle(models.Model):
         verbose_name_plural = "Articles"
 
     @property
-    def Avg_rate(self):
+    def avg_rate(self):
         ratings = ArticleRate.objects.filter(article=self)
         return ratings.aggregate(Avg_rate=Avg("rate")).get("Avg_rate")
 

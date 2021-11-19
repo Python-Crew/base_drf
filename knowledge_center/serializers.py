@@ -18,7 +18,7 @@ class KnowledgeCenterCategorySerializer(serializers.HyperlinkedModelSerializer):
 class KnowledgeCenterArticleSerilizer(serializers.ModelSerializer):
     class Meta:
         model = KnowledgeCenterArticle
-        fields = ["category", "author", "text", "Avg_rate"]
+        fields = ["category", "author", "text", "avg_rate"]
 
 
 class ArticleRateSerializer(serializers.ModelSerializer):
