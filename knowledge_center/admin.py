@@ -13,9 +13,13 @@ admin.site.site_header = "Knowledge Center Dashboard"
 @admin.register(KnowledgeCenterCategory)
 class CategoryAdmin(DraggableMPTTAdmin):
     mptt_indent_field = "title"
-    list_display = ('tree_actions', 'indented_title',
-                    'related_articles_count', 'related_articles_cumulative_count')
-    list_display_links = ('indented_title',)
+    list_display = (
+        "tree_actions",
+        "indented_title",
+        "related_articles_count",
+        "related_articles_cumulative_count",
+    )
+    list_display_links = ("indented_title",)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -24,27 +28,30 @@ class CategoryAdmin(DraggableMPTTAdmin):
         qs = KnowledgeCenterCategory.objects.add_related_count(
             qs,
             KnowledgeCenterArticle,
-            'category',
-            'articles_cumulative_count',
-            cumulative=True)
+            "category",
+            "articles_cumulative_count",
+            cumulative=True,
+        )
 
         # Add non cumulative article count
-        qs = KnowledgeCenterCategory.objects.add_related_count(qs,
-                                                               KnowledgeCenterArticle,
-                                                               'category',
-                                                               'articles_count',
-                                                               cumulative=False)
+        qs = KnowledgeCenterCategory.objects.add_related_count(
+            qs, KnowledgeCenterArticle, "category", "articles_count", cumulative=False
+        )
         return qs
 
     def related_articles_count(self, instance):
         return instance.articles_count
 
-    related_articles_count.short_description = ' articles count related to this category'
+    related_articles_count.short_description = (
+        " articles count related to this category"
+    )
 
     def related_articles_cumulative_count(self, instance):
         return instance.articles_cumulative_count
 
-    related_articles_cumulative_count.short_description = 'articles count belongs to parent+children categories'
+    related_articles_cumulative_count.short_description = (
+        "articles count belongs to parent+children categories"
+    )
 
 
 @admin.register(KnowledgeCenterArticle)

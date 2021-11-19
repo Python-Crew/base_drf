@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "mptt",
     "django_filters",
+    "rest_framework_simplejwt",
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -60,8 +62,7 @@ ROOT_URLCONF = "BaseDRF.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        # 'DIRS': [],
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -130,3 +131,17 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 5,
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
+
+
+AUTH_USER_MODEL = "user.User"
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ]
+}
+
+OTP_EXPIRE_TIME = 60
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
