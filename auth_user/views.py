@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from auth_user.services import (
     get_user,
 )
@@ -30,17 +31,18 @@ class AuthViewSet(GenericViewSet):
         methods=["post"],
         detail=False,
         serializer_class=SendOTPSerializer,
+        url_name="send-otp"
     )
     def send_otp(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        user = get_user(serializer.validated_data["username"])
-        otp = self.__class__.generate_otp(user)
-        user.sendOTP(otp=otp)
-        if settings.DEBUG:
-            return Response({"otp": otp})
-        return Response("sent")
+        if serializer.is_valid(raise_exception=True):
+            user = get_user(serializer.validated_data["username"])
+            otp = self.__class__.generate_otp(user)
+            user.sendOTP(otp=otp)
+            if settings.DEBUG:
+                return Response({"otp": otp})
+            return Response("sent")
+        return JsonResponse(serializer.errors, status=400)
 
     @action(
         methods=["post"],
