@@ -1,6 +1,5 @@
-from os import read
 from rest_framework import serializers
-from . import models
+from .models import Post, BlogCategory, PostComment
 
 
 class PostModelSerializer(serializers.ModelSerializer):
@@ -24,13 +23,13 @@ class PostModelSerializer(serializers.ModelSerializer):
             return webp
 
     class Meta:
-        model = models.Post
+        model = Post
         exclude = ("image",)
 
 
 class BlogCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.BlogCategory
+        model = BlogCategory
         fields = "__all__"
 
 
@@ -42,5 +41,5 @@ class PostCommentSerializer(serializers.ModelSerializer):
     author_last_name = serializers.CharField(source="author.last_name", read_only=True)
 
     class Meta:
-        model = models.PostComment
+        model = PostComment
         fields = "__all__"

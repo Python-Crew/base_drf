@@ -1,10 +1,9 @@
 from django.contrib import admin
-from . import models
-from imagekit.admin import AdminThumbnail
+from .models import PostComment, Post, BlogCategory
 from mptt.admin import MPTTModelAdmin
 
 
-@admin.register(models.BlogCategory)
+@admin.register(BlogCategory)
 class BlogCategoryAdmin(MPTTModelAdmin):
     mptt_level_indent = 20
     list_display = ("id", "name", "parent")
@@ -13,7 +12,7 @@ class BlogCategoryAdmin(MPTTModelAdmin):
     sortable = "-id"
 
 
-@admin.register(models.Post)
+@admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = (
         "id",
@@ -25,7 +24,7 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ("title", "author", "is_published", "category")
 
 
-@admin.register(models.PostComment)
+@admin.register(PostComment)
 class PostCommentAdmin(MPTTModelAdmin):
     mptt_level_indent = 20
     list_display = ("id", "author", "post", "is_published", "parent")

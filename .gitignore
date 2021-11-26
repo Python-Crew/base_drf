@@ -135,3 +135,9 @@ dmypy.json
 asset/
 media/
 static/
+
+
+# pytest cache
+.pytest_cache/
+htmlcov/
+.coveragerc

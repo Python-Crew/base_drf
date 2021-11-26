@@ -2,10 +2,9 @@ import imagekit
 from BaseDRF.models import TimestampModel
 from django.db import models
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 
-from tinymce.models import HTMLField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from mptt.models import MPTTModel, TreeForeignKey

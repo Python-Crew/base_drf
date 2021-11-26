@@ -10,3 +10,9 @@ django-tinymce==3.3.0
 django-imagekit==4.1.0
 django-mptt==0.13.4
 django-ckeditor==6.1.0
+djangorestframework-simplejwt==5.0.0
+pyotp==2.6.0
+pytest==6.2.5
+pytest-django==4.4.0
+pytest-cov==3.0.0
+mixer==7.2.0
