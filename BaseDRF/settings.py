@@ -38,12 +38,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+<<<<<<< HEAD
     "rest_framework",
     "mptt",
     "blog",
     "tinymce",
     "imagekit",
     "ckeditor",
+=======
+    'rest_framework',
+    "seo",
+>>>>>>> ebdf5c6222a96e59c2c36674ec45bccf4e662861
 ]
 
 MIDDLEWARE = [
@@ -54,6 +59,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+<<<<<<< HEAD
+=======
+    "seo.middleware.IncludeSEOInfo",
+>>>>>>> ebdf5c6222a96e59c2c36674ec45bccf4e662861
 ]
 
 ROOT_URLCONF = "BaseDRF.urls"
@@ -125,6 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+<<<<<<< HEAD
 STATIC_ROOT = os.path.join(BASE_DIR, "asset")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
@@ -193,3 +203,5 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 #         'toolbar': 'Basic',
 #     },
 # }
+=======
+>>>>>>> ebdf5c6222a96e59c2c36674ec45bccf4e662861

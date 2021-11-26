@@ -1,0 +1,20 @@
+# .coveragerc to control coverrage.py
+[run]
+source = .
+omit = 
+   *venv/*
+   *venv/bin/*
+   *venv/include/*
+   *venv/lib/*
+   *manage.py
+   */settings.py
+   *apps.py
+   *migrations/*
+   *asgi.py
+   *wsgi.py
+
+
+[report]
+#fail_under = 100
+show_missing = True
+#skip_covered = True

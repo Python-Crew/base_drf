@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+<<<<<<< HEAD
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -34,3 +35,9 @@ urlpatterns = [
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+]
+>>>>>>> ebdf5c6222a96e59c2c36674ec45bccf4e662861
