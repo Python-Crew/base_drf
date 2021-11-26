@@ -130,3 +130,14 @@ dmypy.json
 
 # vscode
 .vscode/
+
+# asset/media/static
+asset/
+media/
+static/
+
+
+# pytest cache
+.pytest_cache/
+htmlcov/
+.coveragerc
