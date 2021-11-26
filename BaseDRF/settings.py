@@ -38,17 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-<<<<<<< HEAD
-    "rest_framework",
-    "mptt",
-    "blog",
-    "tinymce",
-    "imagekit",
-    "ckeditor",
-=======
     'rest_framework',
     "seo",
->>>>>>> ebdf5c6222a96e59c2c36674ec45bccf4e662861
+
 ]
 
 MIDDLEWARE = [
@@ -59,11 +51,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-<<<<<<< HEAD
-=======
     "seo.middleware.IncludeSEOInfo",
->>>>>>> ebdf5c6222a96e59c2c36674ec45bccf4e662861
 ]
+
 
 ROOT_URLCONF = "BaseDRF.urls"
 
@@ -134,7 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
-<<<<<<< HEAD
 STATIC_ROOT = os.path.join(BASE_DIR, "asset")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
@@ -149,59 +138,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-TINYMCE_DEFAULT_CONFIG = {
-    "height": 1280,
-    "width": 1920,
-    "cleanup_on_startup": True,
-    "custom_undo_redo_levels": 20,
-    "selector": "textarea",
-    "browser_spellcheck": "true",
-    "theme": "modern",
-    "plugins": """
-            textcolor save link image media preview codesample contextmenu
-            table code lists fullscreen  insertdatetime  nonbreaking
-            contextmenu directionality searchreplace wordcount visualblocks
-            visualchars code fullscreen autolink lists  charmap print  hr
-            anchor pagebreak
-            """,
-    "toolbar1": """
-            fullscreen preview bold italic underline | fontselect,
-            fontsizeselect  | forecolor backcolor | alignleft alignright |
-            aligncenter alignjustify | indent outdent | bullist numlist table |
-            | link image media | codesample
-            """,
-    "toolbar2": """
-            visualblocks visualchars |
-            charmap hr pagebreak nonbreaking anchor |  code |
-            """,
-    "contextmenu": "formats | link image",
-    "menubar": True,
-    "statusbar": True,
-}
-
-IMAGEKIT_DEFAULT_IMAGE_CACHE_BACKEND = "path.to.MyImageCacheBackend"
 
 SITE_PROTOCOL = "http"
 
 AUTH_USER_MODEL = 'auth.User'
 
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-CKEDITOR_UPLOAD_PATH = "uploads/"
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': 'Custom',
-#         'height': 300,
-#         'width': 300,
-#         'toolbar_Custom': [
-#             ['Bold', 'Italic', 'Underline'],
-#             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-#             ['Link', 'Unlink'],
-#             ['RemoveFormat', 'Source']
-#         ]
-#     },
-#     'awesome_ckeditor': {
-#         'toolbar': 'Basic',
-#     },
-# }
-=======
->>>>>>> ebdf5c6222a96e59c2c36674ec45bccf4e662861
