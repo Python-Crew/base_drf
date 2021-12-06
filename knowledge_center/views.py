@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import generics
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from knowledge_center.models import (
@@ -16,22 +15,15 @@ from knowledge_center.serializers import (
 )
 
 
-class CategoryListAPIView(generics.ListAPIView):
+class CategoryViewset(viewsets.ReadOnlyModelViewSet):
     queryset = KnowledgeCenterCategory.objects.all()
     serializer_class = KnowledgeCenterCategorySerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ("title", "parent")
 
 
-class CategoryDetailAPIView(generics.RetrieveAPIView):
-    queryset = KnowledgeCenterCategory.objects.all()
-    serializer_class = KnowledgeCenterCategorySerializer
-    lookup_filed = "pk"
-
-
 class CategorySelectedAPIView(viewsets.ModelViewSet):
     queryset = KnowledgeCenterCategory.objects.all()
-
     @action(detail=False, methods=["get"])
     def selected(self, request):
         main_page_categories = self.queryset.filter(main_page_category=True)
@@ -44,18 +36,11 @@ class CategorySelectedAPIView(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class ArticleListAPIView(generics.ListAPIView):
+class ArticleViewset(viewsets.ReadOnlyModelViewSet):
     queryset = KnowledgeCenterArticle.objects.all()
     serializer_class = KnowledgeCenterArticleSerilizer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ("author", "category")
-
-
-class ArticleDetailAPIView(generics.RetrieveAPIView):
-    queryset = KnowledgeCenterArticle.objects.all()
-    serializer_class = KnowledgeCenterArticleSerilizer
-    lookup_filed = "pk"
-
 
 class ArticleRateViewSet(viewsets.ModelViewSet):
     queryset = ArticleRate.objects.all()
