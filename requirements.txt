@@ -6,3 +6,6 @@ prices==1.1.0
 requests==2.26.0
 djangorestframework==3.12.4
 black==21.9b0
+djangorestframework-simplejwt==5.0.0
+pyjwt==2.3.0
+pyotp==2.6.0

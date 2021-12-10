@@ -136,3 +136,22 @@ REST_FRAMEWORK = {
 OTP_EXPIRE_TIME = 60
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+# PAYMENT SETTINGS
+
+CALLBACK_URL = "http://127.0.0.1:8000/payment/request_payment/verify/"
+
+BANK_CLASS = {
+    "Zibal": "payment.banks.zibal.Zibal",
+}
+
+BANK_SETTINGS = {
+    "zibal": {
+        "merchant_code": "zibal",
+        "token_api_url": "https://gateway.zibal.ir/v1/request",
+        "payment_url": "https://gateway.zibal.ir/start/{}",
+        "verify_api_url": "https://gateway.zibal.ir/v1/verify",
+    },
+    "DEFAULT": "Zibal",
+}
