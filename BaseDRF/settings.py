@@ -156,3 +156,6 @@ BANK_SETTINGS = {
     },
     "DEFAULT": "Zibal",
 }
+
+
+ORDER_STATUSES = "order.statuses.OrderStatus"

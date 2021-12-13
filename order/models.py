@@ -1,8 +1,16 @@
+import importlib
 from django.conf import settings
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from order.statuses import OrderStatus
 from django.utils.translation import gettext_lazy as _
+
+if getattr(settings, "ORDER_STATUSES", None) is not None:
+    from BaseDRF.settings import ORDER_STATUSES
+    package, attr = ORDER_STATUSES.rsplit(".", 1)
+    module = importlib.import_module(package)
+    OrderStatus = getattr(module, attr)
+else:
+    from order.statuses import OrderStatus
 
 
 class Order(models.Model):
