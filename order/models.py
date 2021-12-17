@@ -16,7 +16,8 @@ class Order(models.Model):
     placement_date = models.DateTimeField(
         _("Placement date"),
     )
-    status = models.CharField(_("status"), choices=OrderStatus.choices, max_length=50)
+    status = models.CharField(_("Status"), choices=OrderStatus.choices, max_length=50)
+    amount = models.IntegerField(_("Amount"))
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 

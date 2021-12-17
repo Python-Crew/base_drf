@@ -1,17 +1,18 @@
+import stripe
 from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework.views import APIView
 
 from order.models import Order
 from payment.banks.bankfactories import BankFactory
+from payment.banks.stripe import Stripe
 from payment.banks.zibal import Zibal
 
 
 class RequestPaymentApi(APIView):
     class InputSerializer(serializers.Serializer):
-        amount = serializers.FloatField()
         bank_type = serializers.CharField(required=False)
-        order_id = serializers.IntegerField()
+        order_id = serializers.IntegerField(required=True)
 
     def post(self, request):
         serializer = self.InputSerializer(data=request.data)
@@ -24,7 +25,7 @@ class RequestPaymentApi(APIView):
             bank_type = "None"
         bank = factory.create(bank_type)
         bank.set_request(request)
-        bank._gateway_amount = int(serializer.data["amount"])
+        bank._gateway_amount = int(order.amount)
         bank._order = order
         bank.ready()
         data = {"gateway_url": bank.get_gateway_payment_url()}
@@ -32,16 +33,20 @@ class RequestPaymentApi(APIView):
 
 
 class RequestPaymentVerifyApi(APIView):
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         data = self.request.query_params
         get_data = {}
         for i in data:
             get_data[i] = data.get(i)
+        get_data["bank_type"] = kwargs["bank_type"]
         return self.post(request, get_data)
 
-    def post(self, request, get_data):
-        bank = Zibal()
+    def post(self, request, *args, **kwargs):
+        # اگر فقط با متد پست از سمت بانگ بیاد به مشکل میخوریم؟؟ اینو چطور هندل کینیم TODO
+        print(args, kwargs)
+        factory = BankFactory()
+        bank = factory.create(args[0]["bank_type"])
         post_data = self.request.data
-        post_data.update(get_data)
+        post_data.update(args[0])
         data = {"verify_result": bank.verify(post_data)}
         return Response(data)

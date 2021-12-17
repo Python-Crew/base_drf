@@ -8,7 +8,7 @@ urlpatterns = [
         name="payment_request_create",
     ),
     path(
-        "request_payment/verify/",
+        "request_payment/verify/<str:bank_type>/",
         RequestPaymentVerifyApi.as_view(),
         name="payment_request_verify",
     ),

@@ -145,6 +145,7 @@ CALLBACK_URL = "http://127.0.0.1:8000/payment/request_payment/verify/"
 
 BANK_CLASS = {
     "Zibal": "payment.banks.zibal.Zibal",
+    "Stripe": "payment.banks.stripe.Stripe",
 }
 
 BANK_SETTINGS = {
@@ -153,6 +154,9 @@ BANK_SETTINGS = {
         "token_api_url": "https://gateway.zibal.ir/v1/request",
         "payment_url": "https://gateway.zibal.ir/start/{}",
         "verify_api_url": "https://gateway.zibal.ir/v1/verify",
+    },
+    "stripe": {
+        "api_key": "sk_test_51K6eC3FQGJKajUQvLvQnLi2WjHMWUEYx5zSKLweniZ2dWZH7ndCPgiC9Bf44gUYyz3aku68Hc7jJdfn9dq1oUUq400GDsWwm6c",
     },
     "DEFAULT": "Zibal",
 }

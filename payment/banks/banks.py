@@ -30,6 +30,10 @@ class BaseBank(ABC):
         self._request = request
 
     @abstractmethod
+    def callback_url(self, request):
+        pass
+
+    @abstractmethod
     def get_bank_type(self):
         pass
 
@@ -66,7 +70,7 @@ class BaseBank(ABC):
             amount=self.get_gateway_amount(),
             transaction_code=self._transaction_code,
             response_result=self._response_result,
-            callback_url=self._callback_url,
+            callback_url=self.callback_url,
         )
         print(payment_record)
         self._payment_record = payment_record

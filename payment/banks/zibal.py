@@ -1,23 +1,10 @@
-import importlib
-
+from order.statuses import OrderStatus
 from payment.banks.banks import BaseBank
 import requests
 from django.conf import settings
-
 from payment.models import PaymentRecord
-
-if getattr(settings, "BANK_TYPE", None) is not None:
-    package, attr = settings.BANK_TYPE.rsplit(".", 1)
-    BankType = getattr(importlib.import_module(package), attr)
-else:
-    from payment.banks.paymentstatuses import BankType
-
-
-if getattr(settings, "PAYMENT_STATUSES", None) is not None:
-    package, attr = settings.PAYMENT_STATUSES.rsplit(".", 1)
-    PaymentStatus = getattr(importlib.import_module(package), attr)
-else:
-    from payment.banks.paymentstatuses import PaymentStatus
+from payment.banks.paymentstatuses import BankType
+from payment.banks.paymentstatuses import PaymentStatus
 
 
 class Zibal(BaseBank):
@@ -29,6 +16,10 @@ class Zibal(BaseBank):
         self._token_api_url = self._bank_config["zibal"]["token_api_url"]
         self._payment_url = self._bank_config["zibal"]["payment_url"]
         self._verify_api_url = self._bank_config["zibal"]["verify_api_url"]
+        self._callback_url = settings.CALLBACK_URL + "Zibal/"
+
+    def callback_url(self, request):
+        return self._callback_url
 
     def get_bank_type(self):
         return BankType.ZIBAL
@@ -51,7 +42,6 @@ class Zibal(BaseBank):
             "callbackUrl": self._callback_url,
             "order": self._order.id,
         }
-        print(data, "sf")
         return data
 
     def pay(self):
@@ -62,13 +52,16 @@ class Zibal(BaseBank):
             self._transaction_code = response_json["trackId"]
             self._payment_record.transaction_code = self._transaction_code
             self._payment_record.status = PaymentStatus.REDIRECT_TO_BANK
+            self._payment_record.order.status = OrderStatus.WAITING_FOR_PAYMENT
 
         else:
             self._payment_record.status = PaymentStatus.FAILED
-            pass
+            self._payment_record.order.status = OrderStatus.FAILED_PAYMENT
+
         self._payment_record.response_result = response_json["result"]
         self._payment_record.extra_information = response_json
         self._payment_record.save()
+        self._payment_record.order.save()
 
     def verify(self, params):
         super(Zibal, self).verify(params)
@@ -83,13 +76,16 @@ class Zibal(BaseBank):
         response_json = self._send_data(self._verify_api_url, data)
         if response_json["result"] == 100 and response_json["status"] == 1:
             self._payment_record.status = PaymentStatus.COMPLETE
-            self._payment_record.extra_information = response_json
-            self._payment_record.response_result = response_json["result"]
+            self._payment_record.order.status = OrderStatus.PAID
+
         elif response_json["result"] is not 100 and 201:
             self._payment_record.status = PaymentStatus.CANCEL_BY_USER
-            self._payment_record.extra_information = response_json
-            self._payment_record.response_result = response_json["result"]
+            self._payment_record.order.status = OrderStatus.FAILED_PAYMENT
+
+        self._payment_record.extra_information = response_json
+        self._payment_record.response_result = response_json["result"]
         self._payment_record.save()
+        self._payment_record.order.save()
         return response_json
 
     def _send_data(self, api, data):

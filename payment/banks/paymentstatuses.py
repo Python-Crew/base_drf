@@ -15,3 +15,4 @@ class PaymentStatus(models.TextChoices):
 
 class BankType(models.TextChoices):
     ZIBAL = "ZIBAL", _("Zibal")
+    STRIPE = "STRIPE", _("Stripe")
