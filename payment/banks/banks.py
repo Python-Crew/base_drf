@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from django.shortcuts import redirect
 from urllib import parse
 import BaseDRF.settings as settings
-from order.models import Order
 from payment.models import PaymentRecord
 
 
@@ -15,8 +14,6 @@ def append_querystring(url: str, params: dict) -> str:
 
 
 class BaseBank(ABC):
-    """Base bank for sending to gateway."""
-
     _gateway_amount: int = 0
     _request: str = None
     _transaction_code: str = ""
@@ -26,11 +23,14 @@ class BaseBank(ABC):
     _response_result: str = None
 
     def set_request(self, request):
-        """اینجا تایپ ریکوست هر بانک رو میگیره"""
         self._request = request
 
     @abstractmethod
     def callback_url(self, request):
+        pass
+
+    @abstractmethod
+    def valid_currency(self):
         pass
 
     @abstractmethod
@@ -64,20 +64,22 @@ class BaseBank(ABC):
         pass
 
     def ready(self):
-        payment_record = PaymentRecord.objects.create(
-            order=self._order,
-            bank_type=self.get_bank_type(),
-            amount=self.get_gateway_amount(),
-            transaction_code=self._transaction_code,
-            response_result=self._response_result,
-            callback_url=self.callback_url,
-        )
-        print(payment_record)
-        self._payment_record = payment_record
-        self.pay()
+        if self._order.currency in self.valid_currency():
+            payment_record = PaymentRecord.objects.create(
+                order=self._order,
+                bank_type=self.get_bank_type(),
+                amount=self.get_gateway_amount(),
+                transaction_code=self._transaction_code,
+                response_result=self._response_result,
+                callback_url=self.callback_url,
+            )
+            self._payment_record = payment_record
+            self.pay()
+        else:
+            # TODO what error?
+            raise Exception
 
     def redirect_gateway(self):
-        """کاربر را به درگاه بانک هدایت می کند"""
         return redirect(self.get_gateway_payment_url())
 
     def get_gateway_payment_url(self):

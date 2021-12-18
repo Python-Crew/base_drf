@@ -9,3 +9,17 @@ class OrderStatus(models.TextChoices):
     PAID = "paid", _("Paid")
     DELIVER = "deliver", _("Deliver")
     POST = "post", _("Post")
+
+
+class CurrencyEnum(models.TextChoices):
+    IRR = "IRR", _("Rial")
+    IRT = "IRT", _("Toman")
+    CAD = "cad", _("Canada dollar")
+
+    @classmethod
+    def rial_to_toman(cls, amount):
+        return amount / 10
+
+    @classmethod
+    def toman_to_rial(cls, amount):
+        return amount * 10

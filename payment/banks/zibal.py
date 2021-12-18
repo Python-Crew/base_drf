@@ -1,4 +1,4 @@
-from order.statuses import OrderStatus
+from order.orderstatuses import OrderStatus, CurrencyEnum
 from payment.banks.banks import BaseBank
 import requests
 from django.conf import settings
@@ -24,11 +24,13 @@ class Zibal(BaseBank):
     def get_bank_type(self):
         return BankType.ZIBAL
 
+    def valid_currency(self):
+        return CurrencyEnum.IRR
+
     def _get_gateway_payment_url_parameter(self):
         return self._payment_url.format(self._transaction_code)
 
     def _get_gateway_payment_parameter(self):
-        """اطلاعات سفارش و .... میشه اینجا فرستاد"""
         params = {"order": self._order.id}
         return params
 
@@ -78,7 +80,7 @@ class Zibal(BaseBank):
             self._payment_record.status = PaymentStatus.COMPLETE
             self._payment_record.order.status = OrderStatus.PAID
 
-        elif response_json["result"] is not 100 and 201:
+        elif response_json["result"] != 100 and 201:
             self._payment_record.status = PaymentStatus.CANCEL_BY_USER
             self._payment_record.order.status = OrderStatus.FAILED_PAYMENT
 
@@ -86,7 +88,7 @@ class Zibal(BaseBank):
         self._payment_record.response_result = response_json["result"]
         self._payment_record.save()
         self._payment_record.order.save()
-        return response_json
+        return self._payment_record.status
 
     def _send_data(self, api, data):
         try:

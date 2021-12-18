@@ -1,16 +1,13 @@
 from abc import ABC
-
-
 from payment.banks.banks import BaseBank
-import requests
 from django.conf import settings
 from payment.models import PaymentRecord
 from payment.banks.paymentstatuses import BankType
 from payment.banks.paymentstatuses import PaymentStatus
-from order.statuses import OrderStatus
+from order.orderstatuses import OrderStatus, CurrencyEnum
 import stripe
 
-stripe.api_key = "sk_test_51K6eC3FQGJKajUQvLvQnLi2WjHMWUEYx5zSKLweniZ2dWZH7ndCPgiC9Bf44gUYyz3aku68Hc7jJdfn9dq1oUUq400GDsWwm6c"
+# stripe.api_key = "sk_test_51K6eC3FQGJKajUQvLvQnLi2WjHMWUEYx5zSKLweniZ2dWZH7ndCPgiC9Bf44gUYyz3aku68Hc7jJdfn9dq1oUUq400GDsWwm6c"
 
 
 class Stripe(BaseBank, ABC):
@@ -26,6 +23,9 @@ class Stripe(BaseBank, ABC):
 
     def get_bank_type(self):
         return BankType.STRIPE
+
+    def valid_currency(self):
+        return CurrencyEnum.CAD
 
     def _get_gateway_payment_url_parameter(self):
         return self._payment_url
@@ -43,11 +43,12 @@ class Stripe(BaseBank, ABC):
 
     def pay(self):
         super(Stripe, self).pay()
+        stripe.api_key = self._api_key
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
                     "price_data": {
-                        "currency": "cad",
+                        "currency": self._order.currency,
                         "unit_amount": self._payment_record.amount,
                         "product_data": {
                             "name": self._order.user.username,
@@ -74,6 +75,7 @@ class Stripe(BaseBank, ABC):
 
     def verify(self, params):
         super(Stripe, self).verify(params)
+        stripe.api_key = self._api_key
         self._payment_record = PaymentRecord.objects.get(
             transaction_code=params["session_id"]
         )
