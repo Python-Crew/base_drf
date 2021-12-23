@@ -65,6 +65,9 @@ class BaseBank(ABC):
 
     def ready(self):
         if self._order.currency in self.valid_currency():
+            print(type(self.valid_currency()))
+            print(self.valid_currency())
+
             payment_record = PaymentRecord.objects.create(
                 order=self._order,
                 bank_type=self.get_bank_type(),
@@ -93,5 +96,6 @@ class BaseBank(ABC):
         )
         redirect_url = append_querystring(url, params)
         if self._request:
+            print(self._request)
             redirect_url = self._request.build_absolute_uri(redirect_url)
         return redirect_url

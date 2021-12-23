@@ -7,8 +7,6 @@ from payment.banks.paymentstatuses import PaymentStatus
 from order.orderstatuses import OrderStatus, CurrencyEnum
 import stripe
 
-# stripe.api_key = "sk_test_51K6eC3FQGJKajUQvLvQnLi2WjHMWUEYx5zSKLweniZ2dWZH7ndCPgiC9Bf44gUYyz3aku68Hc7jJdfn9dq1oUUq400GDsWwm6c"
-
 
 class Stripe(BaseBank, ABC):
     _bank_config = getattr(settings, "BANK_SETTINGS", None)
@@ -25,7 +23,7 @@ class Stripe(BaseBank, ABC):
         return BankType.STRIPE
 
     def valid_currency(self):
-        return CurrencyEnum.CAD
+        return ["CAD", "USD"]
 
     def _get_gateway_payment_url_parameter(self):
         return self._payment_url

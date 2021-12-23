@@ -1,21 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-import importlib
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-
-
-if getattr(settings, "PAYMENT_STATUSES", None) is not None:
-    package, attr = settings.PAYMENT_STATUSES.rsplit(".", 1)
-    PaymentStatus = getattr(importlib.import_module(package), attr)
-else:
-    from payment.banks.paymentstatuses import PaymentStatus
-
-if getattr(settings, "BANK_TYPE", None) is not None:
-    package, attr = settings.BANK_TYPE.rsplit(".", 1)
-    BankType = getattr(importlib.import_module(package), attr)
-else:
-    from payment.banks.paymentstatuses import BankType
+from payment.banks.paymentstatuses import PaymentStatus
+from payment.banks.paymentstatuses import BankType
 
 
 class PaymentRecord(models.Model):
@@ -37,7 +24,7 @@ class PaymentRecord(models.Model):
         choices=BankType.choices,
         verbose_name=_("Bank"),
     )
-    amount = models.CharField(
+    amount = models.FloatField(
         max_length=10, null=False, blank=False, verbose_name=_("Amount")
     )
     # Reference number return from bank

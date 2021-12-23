@@ -25,7 +25,7 @@ class Zibal(BaseBank):
         return BankType.ZIBAL
 
     def valid_currency(self):
-        return CurrencyEnum.IRR
+        return ["CAD", "USD"]
 
     def _get_gateway_payment_url_parameter(self):
         return self._payment_url.format(self._transaction_code)
