@@ -4,6 +4,9 @@ from rest_framework.views import APIView
 from order.models import Order
 from payment.services import gateway_payment_request, gateway_verify_payment_request
 
+from payment.banks.bankfactories import BankFactory
+from payment.banks.zibal import Zibal
+
 
 class RequestPaymentApi(APIView):
     class InputSerializer(serializers.Serializer):
