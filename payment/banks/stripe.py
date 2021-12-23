@@ -4,7 +4,7 @@ from django.conf import settings
 from payment.models import PaymentRecord
 from payment.banks.paymentstatuses import BankType
 from payment.banks.paymentstatuses import PaymentStatus
-from order.orderstatuses import OrderStatus, CurrencyEnum
+from order.orderstatuses import OrderStatus
 import stripe
 
 
