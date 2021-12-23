@@ -47,7 +47,7 @@ class Stripe(BaseBank, ABC):
                 {
                     "price_data": {
                         "currency": self._order.currency,
-                        "unit_amount": self._payment_record.amount,
+                        "unit_amount": int(self._payment_record.amount),
                         "product_data": {
                             "name": self._order.user.username,
                         },
