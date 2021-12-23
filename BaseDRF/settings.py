@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^=+i9yxmh1++h22rq$by&nfb3wco-u92#iuosw0i7l5zl@a_)j'
+SECRET_KEY = "^=+i9yxmh1++h22rq$by&nfb3wco-u92#iuosw0i7l5zl@a_)j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework_simplejwt",
+    "django_prices",
+    "enmerkar",
     "user",
     "rest_framework",
     "payment",
+    "order",
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "enmerkar.middleware.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "BaseDRF.urls"
@@ -144,6 +149,7 @@ CALLBACK_URL = "http://127.0.0.1:8000/payment/request_payment/verify/"
 
 BANK_CLASS = {
     "Zibal": "payment.banks.zibal.Zibal",
+    "Stripe": "payment.banks.stripe.Stripe",
 }
 
 BANK_SETTINGS = {
@@ -153,5 +159,18 @@ BANK_SETTINGS = {
         "payment_url": "https://gateway.zibal.ir/start/{}",
         "verify_api_url": "https://gateway.zibal.ir/v1/verify",
     },
+    "stripe": {
+        "api_key": os.environ.get(
+            "STRIPE_API_KEY",
+            "sk_test_51K6eC3FQGJKajUQvLvQnLi2WjHMWUEYx5zSKLweniZ2dWZH7ndCPgiC9Bf44gUYyz3aku68Hc7jJdfn9dq1oUUq400GDsWwm6c",
+        ),
+    },
     "DEFAULT": "Zibal",
 }
+
+
+ORDER_STATUSES = "order.statuses.OrderStatus"
+
+# PAYMENT_STATUSES = "payment.banks.paymentstatuses.PaymentStatus"
+
+BANK_TYPE = "payment.banks.paymentstatuses.BankType"

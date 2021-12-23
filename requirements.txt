@@ -9,3 +9,6 @@ black==21.9b0
 djangorestframework-simplejwt==5.0.0
 pyjwt==2.3.0
 pyotp==2.6.0
+stripe==2.63.0
+django-prices==2.2.0
+enmerkar==0.7.1
