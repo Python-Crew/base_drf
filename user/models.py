@@ -96,9 +96,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def sendOTP(self, otp, **params):
         if self.email:
             send_mail(
-                "BaseDRF activation code",
-                f"your activation code is {otp}",
-                "bshadmehr76@gmail.com",
-                [self.email],
+                subject="BaseDRF activation code",
+                message=f"your activation code is {otp}",
+                from_email="bshadmehr76@gmail.com",
+                recipient_list=[self.email],
                 fail_silently=False,
             )
