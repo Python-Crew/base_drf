@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "django_prices",
     "enmerkar",
     "user",
-    "rest_framework",
     "payment",
     "order",
 ]
