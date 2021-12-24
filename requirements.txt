@@ -2,3 +2,13 @@ asgiref==3.2.10
 Django==3.1
 pytz==2021.1
 sqlparse==0.4.1
+prices==1.1.0
+requests==2.26.0
+djangorestframework==3.12.4
+black==21.9b0
+djangorestframework-simplejwt==5.0.0
+pyjwt==2.3.0
+pyotp==2.6.0
+stripe==2.63.0
+django-prices==2.2.0
+enmerkar==0.7.1
