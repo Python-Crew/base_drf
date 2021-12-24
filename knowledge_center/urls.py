@@ -1,15 +1,14 @@
 from django.urls import path, include
+from rest_framework import routers
 from .views import (
     CategoryViewset,
     CategorySelectedAPIView,
     ArticleRateViewSet,
     ArticleViewset,
 )
-from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-
 category_list = CategoryViewset.as_view({'get': 'list'})
 category_detail = CategoryViewset.as_view({"get": "retrieve"})
 article_list = ArticleViewset.as_view({'get': 'list'})
