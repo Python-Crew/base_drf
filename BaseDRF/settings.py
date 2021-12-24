@@ -168,9 +168,4 @@ BANK_SETTINGS = {
     "DEFAULT": "Zibal",
 }
 
-
-ORDER_STATUSES = "order.statuses.OrderStatus"
-
-# PAYMENT_STATUSES = "payment.banks.paymentstatuses.PaymentStatus"
-
 BANK_TYPE = "payment.banks.paymentstatuses.BankType"
