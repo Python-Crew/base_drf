@@ -31,7 +31,7 @@ class AuthViewSet(GenericViewSet):
         methods=["post"],
         detail=False,
         serializer_class=SendOTPSerializer,
-        url_name="send-otp"
+        url_name="send-otp",
     )
     def send_otp(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

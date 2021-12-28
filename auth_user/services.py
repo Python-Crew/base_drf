@@ -9,18 +9,12 @@ def get_user(username):
         try:
             user = User.objects.get(email=username)
         except User.DoesNotExist:
-            user = User.objects.create(
-                username=username,
-                email=username
-            )
+            user = User.objects.create(username=username, email=username)
     elif username.isdigit():
         try:
             user = User.objects.get(phone_no=username)
         except User.DoesNotExist:
-            user = User.objects.create(
-                username=username,
-                phone_no=username
-            )
+            user = User.objects.create(username=username, phone_no=username)
     else:
         try:
             user = User.objects.get(username=username)

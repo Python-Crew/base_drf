@@ -10,7 +10,7 @@ def test_send_email_should_succeed(settings, mailoutbox) -> None:
         message="Test",
         from_email="sample@sample.com",
         recipient_list=["sample@sample.com"],
-        fail_silently=False
+        fail_silently=False,
     )
 
     assert len(mailoutbox) == 1

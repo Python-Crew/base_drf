@@ -183,3 +183,4 @@ ORDER_STATUSES = "order.statuses.OrderStatus"
 # PAYMENT_STATUSES = "payment.banks.paymentstatuses.PaymentStatus"
 
 BANK_TYPE = "payment.banks.paymentstatuses.BankType"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"

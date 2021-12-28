@@ -40,7 +40,7 @@ class KnowledgeCenterArticle(models.Model):
     @property
     def avg_rate(self):
         ratings = ArticleRate.objects.filter(article=self)
-        return ratings.aggregate(Avg_rate=Avg("rate")).get("Avg_rate")
+        return ratings.aggregate(avg_rate=Avg("rate")).get("avg_rate")
 
 
 class ArticleRate(models.Model):
