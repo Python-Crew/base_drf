@@ -27,7 +27,7 @@ class PaymentRecord(models.Model):
     amount = models.DecimalField(
         max_digits=9, decimal_places=2, default="5", verbose_name=_("Amount")
     )
-    # Reference number return from bank
+
     transaction_code = models.CharField(
         max_length=255,
         null=False,

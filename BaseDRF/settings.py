@@ -171,15 +171,10 @@ BANK_SETTINGS = {
     "stripe": {
         "api_key": os.environ.get(
             "STRIPE_API_KEY",
-            "sk_test_51K6eC3FQGJKajUQvLvQnLi2WjHMWUEYx5zSKLweniZ2dWZH7ndCPgiC9Bf44gUYyz3aku68Hc7jJdfn9dq1oUUq400GDsWwm6c",
+            "set your key",
         ),
     },
     "DEFAULT": "Zibal",
 }
-
-
-ORDER_STATUSES = "order.statuses.OrderStatus"
-
-# PAYMENT_STATUSES = "payment.banks.paymentstatuses.PaymentStatus"
 
 BANK_TYPE = "payment.banks.paymentstatuses.BankType"
