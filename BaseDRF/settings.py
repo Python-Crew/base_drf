@@ -37,11 +37,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # local app
+    "knowledge_center",
+    "rest_framework",
+    "mptt",
+    "django_filters",
     "rest_framework_simplejwt",
     "django_prices",
     "enmerkar",
     "user",
-    "rest_framework",
     "payment",
     "order",
 ]
@@ -127,6 +131,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 5,
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+}
 
 
 AUTH_USER_MODEL = "user.User"
