@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework import status
+
 from django_filters import rest_framework as filters
 from knowledge_center.models import (
     ArticleRate,
@@ -24,6 +26,7 @@ class CategoryViewset(viewsets.ReadOnlyModelViewSet):
 
 class CategorySelectedAPIView(viewsets.ModelViewSet):
     queryset = KnowledgeCenterCategory.objects.all()
+
     @action(detail=False, methods=["get"])
     def selected(self, request):
         main_page_categories = self.queryset.filter(main_page_category=True)
@@ -42,6 +45,7 @@ class ArticleViewset(viewsets.ReadOnlyModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ("author", "category")
 
+
 class ArticleRateViewSet(viewsets.ModelViewSet):
     queryset = ArticleRate.objects.all()
     serializer_class = ArticleRateSerializer
@@ -50,8 +54,8 @@ class ArticleRateViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk):
         rates = get_object_or_404(self.queryset, pk=pk)

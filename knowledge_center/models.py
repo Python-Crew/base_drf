@@ -45,4 +45,4 @@ class KnowledgeCenterArticle(models.Model):
 
 class ArticleRate(models.Model):
     article = models.ForeignKey(KnowledgeCenterArticle, on_delete=models.CASCADE)
-    rate = models.FloatField(null=True, blank=True)
+    rate = models.FloatField()
